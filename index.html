@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Culture Buffs | Music</title>
     <style>
-        /* --- СТИЛИ (CSS) --- */
+        /* --- STYLES (CSS) --- */
         :root {
-            --bg-color: #f4f4f4; /* Цвет бумаги */
-            --text-color: #1a1a1a; /* Цвет чернил */
+            --bg-color: #f4f4f4; /* Paper color */
+            --text-color: #1a1a1a; /* Ink color */
             --accent-color: #333;
+            /* Main font for everything now (Sans-Serif) */
             --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            --font-serif: 'Georgia', serif;
         }
 
         body {
@@ -37,22 +37,25 @@
         }
 
         h1 {
-            font-family: var(--font-serif);
+            /* Changed to sans-serif to match the body */
+            font-family: var(--font-main);
+            font-weight: 700; 
             font-size: 2.5rem;
             margin: 0;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px; /* Tighter tracking for modern look */
         }
 
         .subtitle {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            opacity: 0.7;
-            margin-top: 10px;
+            opacity: 0.6;
+            margin-bottom: 5px;
             display: block;
+            font-weight: 600;
         }
 
-        /* Список плейлистов */
+        /* Playlist List Styles */
         .playlist-list {
             list-style: none;
             padding: 0;
@@ -60,33 +63,36 @@
         }
 
         .playlist-item {
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid #e0e0e0;
             padding: 20px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: opacity 0.3s;
+            transition: opacity 0.2s ease;
         }
 
         .playlist-item:hover {
-            opacity: 0.7;
+            opacity: 0.6;
         }
 
         .playlist-link {
             text-decoration: none;
             color: var(--text-color);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 500;
             width: 100%;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
         .status {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 4px;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .status.active {
@@ -95,25 +101,33 @@
         }
 
         .status.soon {
-            background-color: #ddd;
-            color: #777;
+            background-color: #e0e0e0;
+            color: #888;
         }
 
-        /* Подвал с ссылкой на книги */
+        /* Footer with cross-link */
         footer {
-            margin-top: 80px;
+            margin-top: 100px;
             text-align: center;
+            opacity: 0.8;
+        }
+
+        .cross-link-text {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: block;
         }
 
         .cross-link-btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 12px 24px;
+            padding: 12px 28px;
             border: 1px solid var(--text-color);
             text-decoration: none;
             color: var(--text-color);
-            font-family: var(--font-serif);
-            font-style: italic;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
         }
 
@@ -142,38 +156,38 @@
 
             <li class="playlist-item">
                 <div class="playlist-link" style="cursor: default;">
-                    <span style="opacity: 0.5;">02. Coming Soon...</span>
-                    <span class="status soon">Wait</span>
+                    <span style="opacity: 0.4;">02. Coming Soon...</span>
+                    <span class="status soon">Soon</span>
                 </div>
             </li>
 
             <li class="playlist-item">
                 <div class="playlist-link" style="cursor: default;">
-                    <span style="opacity: 0.5;">03. Coming Soon...</span>
-                    <span class="status soon">Wait</span>
+                    <span style="opacity: 0.4;">03. Coming Soon...</span>
+                    <span class="status soon">Soon</span>
                 </div>
             </li>
 
             <li class="playlist-item">
                 <div class="playlist-link" style="cursor: default;">
-                    <span style="opacity: 0.5;">04. Coming Soon...</span>
-                    <span class="status soon">Wait</span>
+                    <span style="opacity: 0.4;">04. Coming Soon...</span>
+                    <span class="status soon">Soon</span>
                 </div>
             </li>
 
             <li class="playlist-item">
                 <div class="playlist-link" style="cursor: default;">
-                    <span style="opacity: 0.5;">05. Coming Soon...</span>
-                    <span class="status soon">Wait</span>
+                    <span style="opacity: 0.4;">05. Coming Soon...</span>
+                    <span class="status soon">Soon</span>
                 </div>
             </li>
 
         </ul>
 
         <footer>
-            <p style="font-size: 0.9rem; opacity: 0.7;">Интересуетесь литературой и кино?</p>
-            <a href="https://culturebuffs.github.io/books/" class="cross-link-btn">
-                Перейти к библиотеке →
+            <span class="cross-link-text">Interested in literature and cinema?</span>
+            <a href="https://culturebuffs.github.io/cinema-books/" class="cross-link-btn">
+                Explore the Library →
             </a>
         </footer>
     </div>
