@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culture Buffs | Music</title>
+    <style>
+        /* --- СТИЛИ (CSS) --- */
+        :root {
+            --bg-color: #f4f4f4; /* Цвет бумаги */
+            --text-color: #1a1a1a; /* Цвет чернил */
+            --accent-color: #333;
+            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-serif: 'Georgia', serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        header {
+            margin-bottom: 60px;
+            border-bottom: 2px solid var(--text-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            margin-top: 10px;
+            display: block;
+        }
+
+        /* Список плейлистов */
+        .playlist-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .playlist-item {
+            border-bottom: 1px solid #ccc;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: opacity 0.3s;
+        }
+
+        .playlist-item:hover {
+            opacity: 0.7;
+        }
+
+        .playlist-link {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            font-weight: 500;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .status {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .status.active {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .status.soon {
+            background-color: #ddd;
+            color: #777;
+        }
+
+        /* Подвал с ссылкой на книги */
+        footer {
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .cross-link-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            border: 1px solid var(--text-color);
+            text-decoration: none;
+            color: var(--text-color);
+            font-family: var(--font-serif);
+            font-style: italic;
+            transition: all 0.3s ease;
+        }
+
+        .cross-link-btn:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <span class="subtitle">Culture Buffs Organization</span>
+            <h1>Music & Sound</h1>
+        </header>
+
+        <ul class="playlist-list">
+            
+            <li class="playlist-item">
+                <a href="modernist-fury.html" class="playlist-link">
+                    <span>01. Modernist Fury</span>
+                    <span class="status active">Listen</span>
+                </a>
+            </li>
+
+            <li class="playlist-item">
+                <div class="playlist-link" style="cursor: default;">
+                    <span style="opacity: 0.5;">02. Coming Soon...</span>
+                    <span class="status soon">Wait</span>
+                </div>
+            </li>
+
+            <li class="playlist-item">
+                <div class="playlist-link" style="cursor: default;">
+                    <span style="opacity: 0.5;">03. Coming Soon...</span>
+                    <span class="status soon">Wait</span>
+                </div>
+            </li>
+
+            <li class="playlist-item">
+                <div class="playlist-link" style="cursor: default;">
+                    <span style="opacity: 0.5;">04. Coming Soon...</span>
+                    <span class="status soon">Wait</span>
+                </div>
+            </li>
+
+            <li class="playlist-item">
+                <div class="playlist-link" style="cursor: default;">
+                    <span style="opacity: 0.5;">05. Coming Soon...</span>
+                    <span class="status soon">Wait</span>
+                </div>
+            </li>
+
+        </ul>
+
+        <footer>
+            <p style="font-size: 0.9rem; opacity: 0.7;">Интересуетесь литературой и кино?</p>
+            <a href="https://culturebuffs.github.io/books/" class="cross-link-btn">
+                Перейти к библиотеке →
+            </a>
+        </footer>
+    </div>
+
+</body>
+</html>
