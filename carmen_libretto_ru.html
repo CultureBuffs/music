@@ -54,9 +54,23 @@
         font[color="#009999"] { color: #2b5c5c; font-weight: bold; }
         font[color="#cc0099"] { color: #7a2b4b; font-weight: bold; }
 
+        /* Адаптация для мобильных устройств (iPhone/Safari) */
         @media (max-width: 600px) {
-            .libretto-container { padding: 20px 15px; }
-            pre { font-size: 1rem; }
+            body {
+                padding: 15px 10px; /* Базовый внешний воздух */
+            }
+            .libretto-container { 
+                padding: 25px 20px; /* Внутренний отступ от краев белого листа */
+                box-sizing: border-box; /* Запрещает контейнеру расширяться за пределы экрана */
+                width: 100%;
+                overflow-x: hidden; /* Обрезает невидимые излишки */
+            }
+            pre { 
+                font-size: 1rem; 
+                white-space: pre-wrap;       
+                word-wrap: break-word;
+                overflow-wrap: break-word; /* Принудительный перенос длинных строк из точек */
+            }
         }
     </style>
 </head>
