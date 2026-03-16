@@ -31,18 +31,17 @@
         }
 
         header {
-            margin-bottom: 60px;
+            margin-bottom: 50px;
             border-bottom: 2px solid var(--text-color);
             padding-bottom: 20px;
         }
 
         h1 {
-            /* Changed to sans-serif to match the body */
             font-family: var(--font-main);
             font-weight: 700; 
             font-size: 2.5rem;
             margin: 0;
-            letter-spacing: -1px; /* Tighter tracking for modern look */
+            letter-spacing: -1px; 
         }
 
         .subtitle {
@@ -55,6 +54,22 @@
             font-weight: 600;
         }
 
+        /* --- New Category Styles --- */
+        .category {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            opacity: 0.8;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+
         /* Playlist List Styles */
         .playlist-list {
             list-style: none;
@@ -64,11 +79,15 @@
 
         .playlist-item {
             border-bottom: 1px solid #e0e0e0;
-            padding: 20px 0;
+            padding: 15px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: opacity 0.2s ease;
+        }
+
+        .playlist-item:last-child {
+            border-bottom: none;
         }
 
         .playlist-item:hover {
@@ -100,6 +119,12 @@
             color: var(--bg-color);
         }
 
+        /* New status for texts/librettos */
+        .status.read {
+            background-color: #4a4a4a;
+            color: var(--bg-color);
+        }
+
         .status.soon {
             background-color: #e0e0e0;
             color: #888;
@@ -107,7 +132,7 @@
 
         /* Footer with cross-link */
         footer {
-            margin-top: 100px;
+            margin-top: 80px;
             text-align: center;
             opacity: 0.8;
         }
@@ -145,44 +170,41 @@
             <h1>Music & Sound</h1>
         </header>
 
-        <ul class="playlist-list">
-            
-            <li class="playlist-item">
-                <a href="modernist-fury.html" class="playlist-link">
-                    <span>01. Modernist Fury</span>
-                    <span class="status active">Listen</span>
-                </a>
-            </li>
+        <div class="category">
+            <h2 class="category-title">Playlists & Curations</h2>
+            <ul class="playlist-list">
+                <li class="playlist-item">
+                    <a href="modernist-fury.html" class="playlist-link">
+                        <span>01. Modernist Fury</span>
+                        <span class="status active">Listen</span>
+                    </a>
+                </li>
+                <li class="playlist-item">
+                    <div class="playlist-link" style="cursor: default;">
+                        <span style="opacity: 0.4;">02. Coming Soon...</span>
+                        <span class="status soon">Soon</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
-            <li class="playlist-item">
-                <div class="playlist-link" style="cursor: default;">
-                    <span style="opacity: 0.4;">02. Coming Soon...</span>
-                    <span class="status soon">Soon</span>
-                </div>
-            </li>
-
-            <li class="playlist-item">
-                <div class="playlist-link" style="cursor: default;">
-                    <span style="opacity: 0.4;">03. Coming Soon...</span>
-                    <span class="status soon">Soon</span>
-                </div>
-            </li>
-
-            <li class="playlist-item">
-                <div class="playlist-link" style="cursor: default;">
-                    <span style="opacity: 0.4;">04. Coming Soon...</span>
-                    <span class="status soon">Soon</span>
-                </div>
-            </li>
-
-            <li class="playlist-item">
-                <div class="playlist-link" style="cursor: default;">
-                    <span style="opacity: 0.4;">05. Coming Soon...</span>
-                    <span class="status soon">Soon</span>
-                </div>
-            </li>
-
-        </ul>
+        <div class="category">
+            <h2 class="category-title">Classical Opera</h2>
+            <ul class="playlist-list">
+                <li class="playlist-item">
+                    <a href="carmen_libretto.html" class="playlist-link">
+                        <span>Жорж Бизе: Кармен (Либретто, пер. А. Горчаковой)</span>
+                        <span class="status read">Read</span>
+                    </a>
+                </li>
+                <li class="playlist-item">
+                    <div class="playlist-link" style="cursor: default;">
+                        <span style="opacity: 0.4;">Ожидается...</span>
+                        <span class="status soon">Soon</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
         <footer>
             <span class="cross-link-text">Interested in literature and cinema?</span>
