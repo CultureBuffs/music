@@ -25,7 +25,7 @@
             padding: 15px 0;
             box-shadow: 0 2px 15px rgba(0,0,0,0.1);
             z-index: 1000;
-            display: flex;
+            display: flex; align-items: center;
             justify-content: center;
         }
 
@@ -55,6 +55,45 @@
         font[color="#cc0099"] { color: #7a2b4b; font-weight: bold; }
 
         /* Адаптация для мобильных устройств (iPhone/Safari) */
+      /* Плавный переход для всех элементов */
+        body, .audio-header, .libretto-container, font {
+            transition: background-color 0.5s ease, color 0.5s ease, filter 0.5s ease;
+        }
+
+        /* Настоящий ночной режим (глубокие, мягкие тона) */
+        body.dark-theme {
+            background-color: #161616; /* Антрацитовый фон */
+            color: #c4c4be; /* Пепельно-серебристый текст, снимающий напряжение */
+        }
+        
+        body.dark-theme .audio-header,
+        body.dark-theme .libretto-container {
+            background-color: #1e1e1e; /* Чуть более светлый "лист" для объема */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Усмиряем яркость имен героев во тьме */
+        body.dark-theme font[color="#009999"] { color: #628a8a; } /* Глубокий, приглушенный изумруд */
+        body.dark-theme font[color="#cc0099"] { color: #a3627d; } /* Увядшая роза */
+
+        /* Изящное решение для плеера: мягко инвертируем его свечение */
+        body.dark-theme audio {
+            filter: invert(0.85) hue-rotate(180deg);
+        }
+
+        /* Кнопка смены освещения */
+        .theme-toggle {
+            position: absolute;
+            right: 20px;
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.5;
+            outline: none;
+        }
+        .theme-toggle:hover { opacity: 0.9; }
         @media (max-width: 600px) {
             body {
                 padding: 15px 10px; /* Базовый внешний воздух */
@@ -81,6 +120,7 @@
             <source src="https://github.com/CultureBuffs/music/releases/download/v1.0.0/Opera_Carmen_Sinyavskaya_Sotkilava_Mazurok_Sergienko_Korolev_Bolshoi_1979.m4a" type="audio/mp4">
             Ваш браузер не поддерживает аудио.
         </audio>
+        <button class="theme-toggle" id="themeToggle" title="Сменить освещение">☾</button>
     </div>
 
     <div class="libretto-container">
@@ -2806,7 +2846,22 @@ __________________________________________________________________________
         const player = document.getElementById('carmenPlayer');
         const storageKey = 'carmen_playback_pos';
         const scrollKey = 'carmen_scroll_pos'; // Новый ключ для памяти текста
+        const themeToggle = document.getElementById('themeToggle');
+        const themeKey = 'carmen_theme';
+        // Мгновенно проверяем память о свете, чтобы избежать белой вспышки при открытии
+        if (localStorage.getItem(themeKey) === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeToggle.textContent = '☀'; // Меняем луну на солнце
+        }
 
+        // Ритуал переключения
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const isDark = document.body.classList.contains('dark-theme');
+            
+            localStorage.setItem(themeKey, isDark ? 'dark' : 'light');
+            themeToggle.textContent = isDark ? '☀' : '☾';
+        });
         // Восстановление позиции аудио и текста при загрузке страницы
         window.onload = () => {
             const savedPos = localStorage.getItem(storageKey);
