@@ -108,11 +108,13 @@
         body.dark-theme font[color="#cc0099"] { color: #a3627d; }
         body.dark-theme audio { filter: invert(0.85) hue-rotate(180deg); }
 
-        /* Кнопки управления в заголовке */
-        .controls-right { position: absolute; right: 20px; display: flex; gap: 15px; }
-        .theme-toggle, .video-btn { 
-            background: none; border: none; color: inherit; font-size: 1.2rem; 
-            cursor: pointer; opacity: 0.5; transition: 0.3s; 
+        /* Увеличиваем расстояние между кнопками для чистоты касания */
+        .controls-right {
+            position: absolute;
+            right: 25px;
+            display: flex;
+            gap: 25px; /* Увеличенный зазор */
+            align-items: center;
         }
         .video-btn:hover { color: #ff0000; opacity: 1; }
 
@@ -2914,8 +2916,9 @@ __________________________________________________________________________
 
         // 4. Кинематографический ритуал (Спектакль Атлантова)
         videoBtn.addEventListener('click', () => {
-            player.pause(); // Приглушаем аудио перед видеорядом
-            ytPlayer.src = "https://www.youtube.com/embed/dLdpUdt7H6o?autoplay=1";
+            player.pause();
+            // Добавляем параметр start=1005 прямо в ссылку
+            ytPlayer.src = "https://www.youtube.com/embed/dLdpUdt7H6o?autoplay=1&start=1005";
             overlay.style.display = 'block';
             backdrop.style.display = 'block';
         });
