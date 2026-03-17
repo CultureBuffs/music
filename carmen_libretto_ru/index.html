@@ -94,6 +94,38 @@
             outline: none;
         }
         .theme-toggle:hover { opacity: 0.9; }
+        /* Плавные переходы для зрения */
+        body, .audio-header, .libretto-container, font {
+            transition: background-color 0.5s ease, color 0.5s ease, filter 0.5s ease;
+        }
+
+        /* Ночной режим (Антрацит и Серебро) */
+        body.dark-theme { background-color: #161616; color: #c4c4be; }
+        body.dark-theme .audio-header, body.dark-theme .libretto-container { 
+            background-color: #1e1e1e; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); 
+        }
+        body.dark-theme font[color="#009999"] { color: #628a8a; }
+        body.dark-theme font[color="#cc0099"] { color: #a3627d; }
+        body.dark-theme audio { filter: invert(0.85) hue-rotate(180deg); }
+
+        /* Кнопки управления в заголовке */
+        .controls-right { position: absolute; right: 20px; display: flex; gap: 15px; }
+        .theme-toggle, .video-btn { 
+            background: none; border: none; color: inherit; font-size: 1.2rem; 
+            cursor: pointer; opacity: 0.5; transition: 0.3s; 
+        }
+        .video-btn:hover { color: #ff0000; opacity: 1; }
+
+        /* Кинематографический Overlay */
+        .video-backdrop {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1999;
+        }
+        .video-overlay {
+            display: none; position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); width: 90%; max-width: 850px;
+            background: #000; z-index: 2000; border-radius: 8px; overflow: hidden;
+        }
         @media (max-width: 600px) {
             body {
                 padding: 15px 10px; /* Базовый внешний воздух */
@@ -118,9 +150,19 @@
     <div class="audio-header">
         <audio id="carmenPlayer" controls>
             <source src="https://github.com/CultureBuffs/music/releases/download/v1.0.0/Opera_Carmen_Sinyavskaya_Sotkilava_Mazurok_Sergienko_Korolev_Bolshoi_1979.m4a" type="audio/mp4">
-            Ваш браузер не поддерживает аудио.
         </audio>
-        <button class="theme-toggle" id="themeToggle" title="Сменить освещение">☾</button>
+        <div class="controls-right">
+            <button class="video-btn" id="videoOpen" title="Смотреть спектакль">📺</button>
+            <button class="theme-toggle" id="themeToggle" title="Сменить освещение">☾</button>
+        </div>
+    </div>
+
+    <div class="video-backdrop" id="backdrop"></div>
+    <div class="video-overlay" id="videoOverlay">
+        <div style="position:relative; padding-bottom:56.25%; height:0;">
+            <iframe id="ytPlayer" style="position:absolute; top:0; left:0; width:100%; height:100%;" 
+                src="" frameborder="0" allowfullscreen></iframe>
+        </div>
     </div>
 
     <div class="libretto-container">
@@ -363,6 +405,7 @@
 сигнальный колокол.)</I>
 
 <FONT color=#009999><B>    Ю н о ш и</B></FONT>
+    Лишь раздался звон с фабрики сигарной        
     Мы спешим сюда, чтобы их повидать,
     Встретить здесь цветник девушек коварных,
     Ласковой беседой станем их пленять,
@@ -2843,78 +2886,69 @@ __________________________________________________________________________
     </div>
 
     <script>
+        // 1. Инициализация констант (Органы чувств)
         const player = document.getElementById('carmenPlayer');
-        const storageKey = 'carmen_playback_pos';
-        const scrollKey = 'carmen_scroll_pos'; // Новый ключ для памяти текста
         const themeToggle = document.getElementById('themeToggle');
+        const videoBtn = document.getElementById('videoOpen');
+        const overlay = document.getElementById('videoOverlay');
+        const backdrop = document.getElementById('backdrop');
+        const ytPlayer = document.getElementById('ytPlayer');
+
+        const storageKey = 'carmen_playback_pos';
+        const scrollKey = 'carmen_scroll_pos';
         const themeKey = 'carmen_theme';
-        // Мгновенно проверяем память о свете, чтобы избежать белой вспышки при открытии
+
+        // 2. Мгновенная память атмосферы (Предотвращение вспышки)
         if (localStorage.getItem(themeKey) === 'dark') {
             document.body.classList.add('dark-theme');
-            themeToggle.textContent = '☀'; // Меняем луну на солнце
+            themeToggle.textContent = '☀';
         }
 
-        // Ритуал переключения
+        // 3. Ритуал переключения света
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-theme');
             const isDark = document.body.classList.contains('dark-theme');
-            
             localStorage.setItem(themeKey, isDark ? 'dark' : 'light');
             themeToggle.textContent = isDark ? '☀' : '☾';
         });
-        // Восстановление позиции аудио и текста при загрузке страницы
+
+        // 4. Кинематографический ритуал (Спектакль Атлантова)
+        videoBtn.addEventListener('click', () => {
+            player.pause(); // Приглушаем аудио перед видеорядом
+            ytPlayer.src = "https://www.youtube.com/embed/dLdpUdt7H6o?autoplay=1";
+            overlay.style.display = 'block';
+            backdrop.style.display = 'block';
+        });
+
+        backdrop.addEventListener('click', () => {
+            overlay.style.display = 'none';
+            backdrop.style.display = 'none';
+            ytPlayer.src = ""; // Прерываем поток при закрытии
+        });
+
+        // 5. Восстановление физического присутствия при загрузке
         window.onload = () => {
             const savedPos = localStorage.getItem(storageKey);
-            if (savedPos) {
-                player.currentTime = parseFloat(savedPos);
-            }
+            if (savedPos) player.currentTime = parseFloat(savedPos);
             
             const savedScroll = localStorage.getItem(scrollKey);
-            if (savedScroll) {
-                // Возвращение к оставленной строке
-                window.scrollTo(0, parseFloat(savedScroll));
-            }
+            if (savedScroll) window.scrollTo(0, parseFloat(savedScroll));
         };
 
-        // Сохранение позиции аудио
-        player.ontimeupdate = () => {
-            localStorage.setItem(storageKey, player.currentTime);
-        };
+        // 6. Непрерывное сохранение опыта
+        player.ontimeupdate = () => localStorage.setItem(storageKey, player.currentTime);
+        setInterval(() => localStorage.setItem(scrollKey, window.scrollY), 3000);
 
-        // Невидимое сохранение позиции чтения (каждые 3 секунды)
-        setInterval(() => {
-            localStorage.setItem(scrollKey, window.scrollY);
-        }, 3000);
-
-       /**
-         * Функция для безопасного перехода к моменту времени
-         * @param {string|number} time - время (например, "11:46" или 706)
-         */
+        // 7. Навигация во времени (Безопасный переход)
         function jumpTo(time) {
-            const player = document.getElementById('carmenPlayer');
             let seconds = 0;
-            
-            // Если передана строка с двоеточием (например, "11:46")
             if (typeof time === 'string' && time.includes(':')) {
                 const parts = time.split(':').map(Number);
-                if (parts.length === 3) {
-                    seconds = parts[0] * 3600 + parts[1] * 60 + parts[2];
-                } else if (parts.length === 2) {
-                    seconds = parts[0] * 60 + parts[1];
-                }
-            } else {
-                // Если переданы просто секунды (например, 706)
-                seconds = Number(time);
-            }
-            
-            // Архитектурное "лекарство" для Safari и тяжелых файлов:
-            player.pause(); // 1. Приглушаем звук
-            player.currentTime = seconds; // 2. Перемещаем иглу
-            
-            // 3. Даем браузеру микропаузу на подгрузку данных и запускаем
-            setTimeout(() => {
-                player.play();
-            }, 150);
+                seconds = parts.length === 3 ? parts[0] * 3600 + parts[1] * 60 + parts[2] : parts[0] * 60 + parts[1];
+            } else { seconds = Number(time); }
+            player.pause();
+            player.currentTime = seconds;
+            setTimeout(() => player.play(), 150);
         }
     </script>
 
